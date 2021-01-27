@@ -1,0 +1,20 @@
+<a [routerLink]="['/']">
+    <h1>hi</h1>
+</a>
+
+<div>
+
+    <div>
+        <a [routerLink]="['/register']" class="button fancy-button">
+            registracia
+        </a>
+       
+        <a [routerLink]="['/login']" class="button fancy-button">
+            login
+        </a>
+    
+        <a [routerLink]="['/users']" class="button fancy-button" *ngIf="check()">
+             Users
+        </a>        
+    </div>
+</div>

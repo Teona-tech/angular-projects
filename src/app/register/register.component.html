@@ -1,0 +1,93 @@
+<main>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+        <div>
+            <label>E-mail:</label>
+            <input type="email" required formControlName="email">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                <div *ngIf="email.errors.required">
+                    <span class="error">Email is required</span>
+                </div>
+            </div>
+            <div *ngIf="!isEmailValid(email.value) && email.touched">
+                <span class="error">Email is invalid</span>
+            </div>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" required formControlName="password">
+            <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                <div *ngIf="password.errors.required">
+                    <span class="error">Password is required</span>
+                </div>
+            </div>
+            <div *ngIf="!isPasswordValid(password.value) && password.touched">
+                <span class="error">
+                    Password should contain only english characters and numbers
+                </span>
+            </div>
+            <div *ngIf="password.errors?.minlength">
+                <span class="error">
+                    The lenght of Password should be 7 characters or more
+                </span>
+            </div>
+        </div>
+        <div>
+            <label>Confirm Password:</label>
+            <input type="password" required formControlName="confirmPassword">
+            <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+                <div *ngIf="confirmPassword.errors.required">
+                    <span class="error">Password is required</span>
+                </div>
+            </div>
+            <div *ngIf="!isEqual(password.value, confirmPassword.value) && password.touched">
+                <span class="error">Passwords are not equal</span>
+            </div>
+        </div>
+        <div>
+            <label>Nickname:</label>
+            <input type="text" required formControlName="nickname">
+            <div *ngIf="nickname.invalid && (nickname.dirty || nickname.touched)">
+                <div *ngIf="nickname.errors.required">
+                    <span class="error">Nickname is required</span>
+                </div>
+            </div>
+            <div *ngIf="!isNicknameValid(nickname.value) && nickname.touched">
+                <span class="error">Nickname should contain only english characters numbers and character -</span>
+            </div>
+            <div *ngIf="nickname.errors?.minlength">
+                <span class="error">
+                    The lenght of Nickname should be 3 characters or more
+                </span>
+            </div>
+        </div>
+        <div>
+            <label>Phone Number:</label>
+            <input type="text" required formControlName="phoneNumber">
+            <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+                <div *ngIf="phoneNumber.errors.required">
+                    <span class="error">Phone Number is required</span>
+                </div>
+            </div>
+            <div *ngIf="!isPhoneNumberValid(phoneNumber.value) && phoneNumber.touched">
+                <span class="error">Phone is invalid</span>
+            </div>
+        </div>
+        <div>
+            <label>Website:</label>
+            <input type="url" placeholder="website" required formControlName="website">
+            <div *ngIf="website.invalid && (website.dirty || website.touched)">
+                <div *ngIf="website.errors.required">
+                    <span class="error">Website is required</span>
+                </div>
+            </div>
+            <div *ngIf="!isWebsiteValid(website.value) && website.touched">
+                <span class="error">Website is invalid</span>
+            </div>
+        </div>
+        <div class="agreement">
+            <input type="checkbox" [checked]="false" required (change)="isChecked($event)" formControlName="agreement">
+            <span>I have read the <a href="#">agreement </a></span>
+        </div>
+        <button class="button" type="submit" [disabled]="!userAgreed || !isEqual(password.value, confirmPassword.value)">Register</button>
+    </form>
+</main>
